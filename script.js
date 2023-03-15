@@ -1,54 +1,52 @@
 var computerScore = 0;
 var playerScore = 0;
 
-function game() {
-    function playRound() {
-        function getComputerChoice() {
-            let choices = ["Rock", "Paper", "Scissors"];
-            return choices[Math.floor(Math.random() * choices.length)];
-        }
-        let computerChoice = getComputerChoice();
-        
-        let playerSelection = prompt("Rock, Paper or Scissors?");
-        
-        
-        if (playerSelection.toLowerCase() === "rock") {
-            if (computerChoice === "Paper") { alert("You Lose! Paper beats Rock"); computerScore = ++computerScore; }
-            else if (computerChoice === "Scissors") { alert("You Win! Rock beats Scissors"); playerScore = ++playerScore; }
-            else { alert("It's  a tie!") }
-            
-        }
-        else if (playerSelection.toLowerCase() === "paper") {
-            if (computerChoice === "Scissors") { alert("You Lose! Scissors beats paper!"); computerScore = ++computerScore; }
-            else if (computerChoice === "Rock") { alert("You Win! Paper beats Rock"); playerScore = ++playerScore; }
-            else { alert("It's  a tie!") }
-        }
-            
-        else if (playerSelection.toLowerCase() === "scissors") {
-            if (computerChoice === "Rock") { alert("You Lose! Rock beats scissors!"); computerScore = ++computerScore; }
-            else if (computerChoice === "Paper") { alert("You Win! Scissors beats Rock"); playerScore = ++playerScore; }
-            else { alert("It's  a tie!") }
-        }
-        else { alert("Please enter a valid choice.") }
+const rock = document.getElementById('rock');
+rock.addEventListener('click', playRound);
 
-        console.log(computerScore + " - " + playerScore);
-        /* 
-               Declare variable for scores 
-               increment for wins
-               Console.log or alert score after every round
-               Repeat 5 rounds 
-               show score
-               Alert ("Player / computer win")
-               */
+const paper = document.getElementById('paper');
+paper.addEventListener('click', playRound);
+
+const scissors = document.getElementById('scissors');
+scissors.addEventListener('click', playRound);
+
+const results = document.getElementById('results');
+
+function playRound() {
+    function getComputerChoice() {
+        let choices = ["Rock", "Paper", "Scissors"];
+        return choices[Math.floor(Math.random() * choices.length)];
     }
+    let computerChoice = getComputerChoice();
+    let playerSelection = this.id;
+
+        
+    if (playerSelection === "rock") {
+        if (computerChoice === "Paper") { results.textContent = "You Lose! Paper beats Rock"; computerScore = ++computerScore; }
+        else if (computerChoice === "Scissors") { results.textContent = "You Win! Rock beats Scissors"; playerScore = ++playerScore; }
+        else { results.textContent = "It's  a tie!"; }
+            
+    }
+    else if (playerSelection === "paper") {
+        if (computerChoice === "Scissors") { results.textContent = "You Lose! Scissors beats paper!"; computerScore = ++computerScore; }
+        else if (computerChoice === "Rock") { results.textContent = "You Win! Paper beats Rock"; playerScore = ++playerScore; }
+        else { results.textContent = "It's  a tie!" }
+    }
+            
+    else if (playerSelection === "scissors") {
+        if (computerChoice === "Rock") { results.textContent = "You Lose! Rock beats scissors!"; computerScore = ++computerScore; }
+        else if (computerChoice === "Paper") { results.textContent = "You Win! Scissors beats Rock"; playerScore = ++playerScore; }
+        else { results.textContent = "It's  a tie!" }
+    }
+    else { results.textContent = "Please enter a valid choice." }
+
+    results.textContent += ` Score is ${computerScore} - ${playerScore} `;
+
+    if (computerScore === 5) { results.textContent += " Computer Wins the Game!"; computerScore = 0; playerScore = 0; }
+    else if (playerScore === 5) { results.textContent += " Player Wins the Game!";  computerScore = 0; playerScore = 0;}
     
-    for (let i = 0; i < 5; i++) {
-        playRound();
-    }
-    var win;
-        if (computerScore > playerScore) { win ="Computer Win!" }
-        else if (playerScore > computerScore) {win ="Player Win!"}
-        else { win = "It's a Tie!"}
-    alert ( `Score is ${playerScore} - ${computerScore} ${win}` )
 }
-game();
+    
+        
+
+   
